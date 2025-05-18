@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import ContentPopup from './ContentPopup'
-import { ContentItem } from '@/payload-types'
+import { ContentItem, Source } from '@/payload-types'
 
 interface ContentItemCardProps {
   item: ContentItem
@@ -10,11 +10,6 @@ interface ContentItemCardProps {
 }
 
 export default function ContentItemCard({ item, index }: ContentItemCardProps) {
-  const [isPopupOpen, setIsPopupOpen] = useState(false)
-
-  const openPopup = () => setIsPopupOpen(true)
-  const closePopup = () => setIsPopupOpen(false)
-
   // Determine if this is a main headline (first few items)
   const isMainHeadline = index < 2
 
@@ -34,7 +29,8 @@ export default function ContentItemCard({ item, index }: ContentItemCardProps) {
             ${isMainHeadline ? 'text-4xl leading-none mb-4' : 'text-xl'}
           `}
           >
-            {item.title} <span className="text-xs text-blue-600">({item.source.name})</span>
+            {item.title}{' '}
+            <span className="text-xs text-blue-600">({(item?.source as Source)?.name || ''})</span>
           </h2>
           {item.publishDate && (
             <div className="text-xs text-gray-600 uppercase tracking-wider font-bold">
