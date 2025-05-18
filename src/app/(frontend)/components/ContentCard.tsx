@@ -56,6 +56,16 @@ export default function ContentItemCard({ item, index }: ContentItemCardProps) {
         <div className="text-sm leading-relaxed text-gray-700">
           {item.summary && <p className="mb-3 text-gray-600 italic text-justify">{item.summary}</p>}
 
+          {item.bulletPoints && item.bulletPoints.length > 0 && (
+            <div className="flex mb-2 flex-wrap gap-1.5 mb-2.5 bg-green-100 p-2 rounded-md text-green-700">
+              <ul className="list-disc pl-5">
+                {item.bulletPoints.map((bulletPoint, idx) => (
+                  <li key={idx}>{bulletPoint}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {/* Keywords as tags */}
           {item.keywords && item.keywords.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mb-2.5">
@@ -77,14 +87,6 @@ export default function ContentItemCard({ item, index }: ContentItemCardProps) {
             )}
             <span className="font-bold">Priority: {item.priority}</span>
           </div>
-
-          {item.bulletPoints && item.bulletPoints.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mb-2.5 bg-green-100 p-2 rounded-md text-green-700">
-              {item.bulletPoints.map((bulletPoint, idx) => (
-                <span key={idx}>{bulletPoint}</span>
-              ))}
-            </div>
-          )}
 
           {/* View Full Content Button */}
           <div className="flex ">

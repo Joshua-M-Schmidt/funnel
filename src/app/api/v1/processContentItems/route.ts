@@ -115,12 +115,12 @@ export const GET = async () => {
 
         const prompt = `
 Analyze the following article and provide:
-1. A concise summary (max 200 words)
+1. A concise summary (max 100 words), don't repeat the title in the summary, have a good word economy
 2. 5-7 relevant keywords
 3. Category classification
 4. Priority level (high/medium/low) based on general interest and urgency
 5. Estimated read time in minutes
-6. 5-10 bullet points
+6. 5-10 bullet points, that give the most important information from the article, don't repeat the title in the bullet points
 
 Title: ${item.title}
 Content: ${contentForAnalysis}

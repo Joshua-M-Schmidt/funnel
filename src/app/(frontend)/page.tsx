@@ -40,7 +40,7 @@ export default async function HomePage() {
       </header>
 
       {/* Newspaper Content Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-5">
         {contentItems.docs.map((item, index) => (
           <ContentItemCard key={item.id} item={item} index={index} />
         ))}
