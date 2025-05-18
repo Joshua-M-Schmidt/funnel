@@ -49,22 +49,24 @@ export const GET = async () => {
 
     const prompt = `
     Analyze the following article and provide:
-    1. A concise summary (2-3 sentences)
+    1. A concise summary (200)
     2. 5-7 relevant keywords
     3. Category classification
     4. Priority level (high/medium/low) based on general interest and urgency
     5. Estimated read time in minutes
+    6. 5-10 bullet points
 
     Title: ${item.title}
     Content: ${item.content}
 
     Please respond in the following JSON format:
     {
-      "summary": "Brief summary here (100 Words)",
+      "summary": "Brief summary here (200 Words)",
       "keywords": ["keyword1", "keyword2", "keyword3"],
       "category": "category name",
       "priority": "medium",
-      "estimatedReadTime": 5
+      "estimatedReadTime": 5,
+      "bulletPoints": ["bullet point 1", "bullet point 2", "bullet point 3"],
     }
   `
 
@@ -98,6 +100,7 @@ export const GET = async () => {
         estimatedReadTime: analysis.estimatedReadTime,
         isProcessed: true,
         content: content,
+        bulletPoints: analysis.bulletPoints,
       },
     })
   })

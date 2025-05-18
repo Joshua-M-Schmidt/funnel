@@ -22,6 +22,11 @@ export const ContentItem: CollectionConfig = {
       hasMany: true,
     },
     {
+      name: 'bulletPoints',
+      type: 'text',
+      hasMany: true,
+    },
+    {
       name: 'source',
       type: 'relationship',
       relationTo: 'source',

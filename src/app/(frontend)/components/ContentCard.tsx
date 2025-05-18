@@ -78,6 +78,14 @@ export default function ContentItemCard({ item, index }: ContentItemCardProps) {
             <span className="font-bold">Priority: {item.priority}</span>
           </div>
 
+          {item.bulletPoints && item.bulletPoints.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mb-2.5 bg-green-100 p-2 rounded-md text-green-700">
+              {item.bulletPoints.map((bulletPoint, idx) => (
+                <span key={idx}>{bulletPoint}</span>
+              ))}
+            </div>
+          )}
+
           {/* View Full Content Button */}
           <div className="flex ">
             <a

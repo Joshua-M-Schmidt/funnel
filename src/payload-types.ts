@@ -178,6 +178,7 @@ export interface ContentItem {
   content?: string | null;
   summary?: string | null;
   keywords?: string[] | null;
+  bulletPoints?: string[] | null;
   source?: (string | null) | Source;
   originalUrl: string;
   publishDate?: string | null;
@@ -310,6 +311,7 @@ export interface ContentItemSelect<T extends boolean = true> {
   content?: T;
   summary?: T;
   keywords?: T;
+  bulletPoints?: T;
   source?: T;
   originalUrl?: T;
   publishDate?: T;
