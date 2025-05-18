@@ -4,10 +4,6 @@ import Parser from 'rss-parser'
 
 const parser: Parser = new Parser()
 
-function processItem(item: any, payload: any) {
-  payload.logger.info(`Processing item: ${item.title}`)
-}
-
 export const GET = async () => {
   try {
     const payload = await getPayload({
@@ -28,53 +24,8 @@ export const GET = async () => {
       if (source.type === 'rss') {
         try {
           const feed = await parser.parseURL(source.url)
-
-          payload.logger.info(`Feed items: ${feed}`)
-
-          for (const channel of feed.channels) {
-            payload.logger.info(`Channel: ${channel.title}`)
-            for (const item of channel.items) {
-              try {
-                // Check if item is already in the database
-                const existingItem = await payload.find({
-                  collection: 'contentItem',
-                  where: {
-                    originalUrl: {
-                      equals: item.link,
-                    },
-                  },
-                  limit: 1, // Only need to check if one exists
-                })
-
-                if (existingItem.docs.length > 0) {
-                  payload.logger.info(`Item already exists in the database: ${item.title}`)
-                  totalSkipped++
-                  continue // ✅ Use continue instead of return
-                }
-
-                payload.logger.info(`Creating content item for source ${item.title}`)
-
-                await payload.create({
-                  collection: 'contentItem',
-                  data: {
-                    title: item.title || '',
-                    content: item.content || item.contentSnippet || '',
-                    source: source.id,
-                    originalUrl: item.link || '',
-                    publishDate: item.pubDate || new Date().toISOString(),
-                    isProcessed: false, // Add this if you have this field
-                  },
-                })
-
-                totalProcessed++
-                payload.logger.info(`Successfully created content item: ${item.title}`)
-              } catch (itemError) {
-                totalErrors++
-                payload.logger.error(`Error creating content item for ${item.title}:`, itemError)
-                // Continue processing other items
-              }
-            }
-          }
+          payload.logger.info(`RSS feed fetched for source ${source.name}`)
+          console.log(feed)
 
           for (const item of feed.items) {
             try {
