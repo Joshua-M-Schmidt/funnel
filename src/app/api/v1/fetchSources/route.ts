@@ -63,5 +63,9 @@ export const GET = async () => {
     }
   }
 
-  return Response.json({ message: 'Sources fetched and processed' })
+  return new Response(JSON.stringify({ message: 'Sources fetched and processed' }), {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
 }
