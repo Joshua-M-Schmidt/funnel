@@ -73,7 +73,7 @@ function processElement(element: HTMLElement, options: OptimizationOptions): voi
       }
     } else if (child instanceof TextNode) {
       // Remove comment nodes
-      if (options.removeComments && child.isComment) {
+      if (options.removeComments) {
         child.remove()
       }
     }

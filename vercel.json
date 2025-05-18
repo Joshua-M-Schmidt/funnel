@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/v1/fetchSources",
+      "schedule": "0 */12 * * *"
+    },
+    {
+      "path": "/api/v1/processContentItems",
+      "schedule": "0 */12 * * *"
+    }
+  ]
+}
