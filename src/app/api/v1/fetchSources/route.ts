@@ -37,6 +37,8 @@ export const GET = async () => {
           }
 
           try {
+            payload.logger.info(`Creating content item for source ${item.title}`)
+
             await payload.create({
               collection: 'contentItem',
               data: {
