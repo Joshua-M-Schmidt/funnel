@@ -9,6 +9,11 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
+# Update Corepack to the version with the fix and enable PNPM
+RUN npm install -g corepack@0.31.0 && \
+    corepack enable && \
+    corepack prepare pnpm@9.15.4 --activate
+
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN \
@@ -31,8 +36,9 @@ COPY . .
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 # Update and enable Corepack
-RUN npm install -g corepack@latest && \
-    corepack enable
+RUN npm install -g corepack@0.31.0 && \
+    corepack enable && \
+    corepack prepare pnpm@9.15.4 --activate
 
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
