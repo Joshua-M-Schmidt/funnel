@@ -20,6 +20,8 @@ export const GET = async () => {
         const feed = await parser.parseURL(source.url)
         payload.logger.info(`RSS feed fetched for source ${source.name}`)
 
+        payload.logger.info(`Feed items: ${feed.items.length}`)
+
         feed.items.forEach(async (item) => {
           // check if item is already in the database
           const existingItem = await payload.find({
@@ -60,5 +62,6 @@ export const GET = async () => {
       }
     }
   })
-  return Response.json(data.docs)
+
+  return Response.json({ message: 'Sources fetched and processed' })
 }
