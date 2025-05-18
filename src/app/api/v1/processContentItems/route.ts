@@ -54,7 +54,7 @@ export const GET = async () => {
           equals: false,
         },
       },
-      limit: 50, // Reduced to prevent timeout
+      limit: 10, // Reduced to prevent timeout
     })
 
     if (data.docs.length === 0) {
