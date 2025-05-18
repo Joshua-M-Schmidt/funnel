@@ -17,6 +17,7 @@ export const Source: CollectionConfig = {
     {
       name: 'url',
       type: 'text',
+      required: true,
     },
     {
       name: 'isActive',

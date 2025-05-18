@@ -10,5 +10,12 @@ export const GET = async () => {
     collection: 'source',
   })
 
+  data.docs.forEach(async (source) => {
+    if (source.type === 'rss') {
+      const rssFeed = await fetch(source.url)
+      const rssData = await rssFeed.json()
+      console.log(rssData)
+    }
+  })
   return Response.json(data)
 }

@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     source: Source;
+    contentItem: ContentItem;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -79,6 +80,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     source: SourceSelect<false> | SourceSelect<true>;
+    contentItem: ContentItemSelect<false> | ContentItemSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -159,10 +161,30 @@ export interface Source {
   id: string;
   name: string;
   type: 'rss';
-  url?: string | null;
+  url: string;
   isActive?: boolean | null;
   categories?: string[] | null;
   owner?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contentItem".
+ */
+export interface ContentItem {
+  id: string;
+  title: string;
+  content?: string | null;
+  summary?: string | null;
+  keywords?: string[] | null;
+  source?: (string | null) | Source;
+  originalUrl?: string | null;
+  publishDate?: string | null;
+  priority?: ('high' | 'medium' | 'low') | null;
+  isRead?: boolean | null;
+  category?: string | null;
+  estimatedReadTime?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -184,6 +206,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'source';
         value: string | Source;
+      } | null)
+    | ({
+        relationTo: 'contentItem';
+        value: string | ContentItem;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -271,6 +297,25 @@ export interface SourceSelect<T extends boolean = true> {
   isActive?: T;
   categories?: T;
   owner?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contentItem_select".
+ */
+export interface ContentItemSelect<T extends boolean = true> {
+  title?: T;
+  content?: T;
+  summary?: T;
+  keywords?: T;
+  source?: T;
+  originalUrl?: T;
+  publishDate?: T;
+  priority?: T;
+  isRead?: T;
+  category?: T;
+  estimatedReadTime?: T;
   updatedAt?: T;
   createdAt?: T;
 }
