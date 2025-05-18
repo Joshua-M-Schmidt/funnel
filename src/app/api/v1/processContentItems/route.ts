@@ -20,7 +20,7 @@ export const GET = async () => {
     limit: 100,
   })
 
-  data.docs.forEach(async (item) => {
+  for (const item of data.docs) {
     // check if item has content
 
     let content = ''
@@ -103,7 +103,7 @@ export const GET = async () => {
         bulletPoints: analysis.bulletPoints,
       },
     })
-  })
+  }
 
   return Response.json({
     message: data.docs,

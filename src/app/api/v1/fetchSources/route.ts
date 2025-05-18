@@ -13,7 +13,7 @@ export const GET = async () => {
     collection: 'source',
   })
 
-  data.docs.forEach(async (source) => {
+  for (const source of data.docs) {
     payload.logger.info(`Fetching RSS feed for source ${source.url}`)
     if (source.type === 'rss') {
       try {
@@ -22,7 +22,7 @@ export const GET = async () => {
 
         payload.logger.info(`Feed items: ${feed.items.length}`)
 
-        feed.items.forEach(async (item) => {
+        for (const item of feed.items) {
           // check if item is already in the database
           const existingItem = await payload.find({
             collection: 'contentItem',
@@ -55,13 +55,13 @@ export const GET = async () => {
             payload.logger.error(`Error creating content item for source ${source.url}`)
             payload.logger.error(error)
           }
-        })
+        }
       } catch (error) {
         payload.logger.error(`Error fetching RSS feed for source ${source.url}`)
         payload.logger.error(error)
       }
     }
-  })
+  }
 
   return Response.json({ message: 'Sources fetched and processed' })
 }
