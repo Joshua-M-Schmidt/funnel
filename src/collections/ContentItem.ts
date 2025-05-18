@@ -30,6 +30,7 @@ export const ContentItem: CollectionConfig = {
       name: 'originalUrl',
       type: 'text',
       unique: true,
+      required: true,
     },
     {
       name: 'publishDate',
@@ -53,6 +54,11 @@ export const ContentItem: CollectionConfig = {
     {
       name: 'estimatedReadTime',
       type: 'number',
+    },
+    {
+      name: 'hidden',
+      type: 'checkbox',
+      defaultValue: false,
     },
   ],
 }

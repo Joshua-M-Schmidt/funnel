@@ -179,7 +179,7 @@ export interface ContentItem {
   summary?: string | null;
   keywords?: string[] | null;
   source?: (string | null) | Source;
-  originalUrl?: string | null;
+  originalUrl: string;
   publishDate?: string | null;
   priority?: ('high' | 'medium' | 'low') | null;
   isProcessed?: boolean | null;

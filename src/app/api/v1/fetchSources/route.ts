@@ -13,8 +13,6 @@ export const GET = async () => {
     collection: 'source',
   })
 
-  const rssData: any[] = []
-
   data.docs.forEach(async (source) => {
     payload.logger.info(`Fetching RSS feed for source ${source.url}`)
     if (source.type === 'rss') {
@@ -23,6 +21,21 @@ export const GET = async () => {
         payload.logger.info(`RSS feed fetched for source ${source.name}`)
 
         feed.items.forEach(async (item) => {
+          // check if item is already in the database
+          const existingItem = await payload.find({
+            collection: 'contentItem',
+            where: {
+              originalUrl: {
+                equals: item.link,
+              },
+            },
+          })
+
+          if (existingItem.docs.length > 0) {
+            payload.logger.info(`Item already exists in the database`)
+            return
+          }
+
           try {
             await payload.create({
               collection: 'contentItem',
@@ -45,5 +58,5 @@ export const GET = async () => {
       }
     }
   })
-  return Response.json(rssData)
+  return Response.json(data.docs)
 }
