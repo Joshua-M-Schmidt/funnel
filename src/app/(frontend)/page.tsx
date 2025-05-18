@@ -7,10 +7,6 @@ import ContentItemCard from './components/ContentCard'
 import Link from 'next/link'
 import WeekNavigation from './components/WeekNavigation'
 
-interface PageProps {
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
 // Helper functions for week calculations
 function getWeekNumber(date: Date): number {
   const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
@@ -42,8 +38,7 @@ function formatWeekRange(start: Date, end: Date): string {
   return `${startStr} - ${endStr}`
 }
 
-export default async function HomePage({ searchParams }: PageProps) {
-  const headers = await getHeaders()
+export default async function HomePage({ searchParams }: any) {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
@@ -74,11 +69,6 @@ export default async function HomePage({ searchParams }: PageProps) {
     limit: 100,
     sort: '-publishDate',
   })
-
-  // Get available years and weeks from database
-  // Start from February 2025 as requested
-  const startDate = new Date(2025, 1, 1) // February 1, 2025
-  const endDate = new Date()
 
   // Get weeks with content for navigation
   const availableWeeks = await getAvailableWeeks(payload, selectedYear)
