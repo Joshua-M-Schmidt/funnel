@@ -182,7 +182,7 @@ export interface ContentItem {
   originalUrl?: string | null;
   publishDate?: string | null;
   priority?: ('high' | 'medium' | 'low') | null;
-  isRead?: boolean | null;
+  isProcessed?: boolean | null;
   category?: string | null;
   estimatedReadTime?: number | null;
   updatedAt: string;
@@ -313,7 +313,7 @@ export interface ContentItemSelect<T extends boolean = true> {
   originalUrl?: T;
   publishDate?: T;
   priority?: T;
-  isRead?: T;
+  isProcessed?: T;
   category?: T;
   estimatedReadTime?: T;
   updatedAt?: T;

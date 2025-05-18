@@ -29,6 +29,7 @@ export const ContentItem: CollectionConfig = {
     {
       name: 'originalUrl',
       type: 'text',
+      unique: true,
     },
     {
       name: 'publishDate',
@@ -41,7 +42,7 @@ export const ContentItem: CollectionConfig = {
       defaultValue: 'medium',
     },
     {
-      name: 'isRead',
+      name: 'isProcessed',
       type: 'checkbox',
       defaultValue: false,
     },
