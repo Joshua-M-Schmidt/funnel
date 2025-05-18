@@ -34,7 +34,7 @@ export default function ContentItemCard({ item, index }: ContentItemCardProps) {
             ${isMainHeadline ? 'text-4xl leading-none mb-4' : 'text-xl'}
           `}
           >
-            {item.title}
+            {item.title} <span className="text-xs text-blue-600">({item.source.name})</span>
           </h2>
           {item.publishDate && (
             <div className="text-xs text-gray-600 uppercase tracking-wider font-bold">
