@@ -13,14 +13,7 @@ export default async function HomePage() {
   const contentItems = await payload.find({
     collection: 'contentItem',
     where: {
-      and: [
-        {
-          isProcessed: { equals: true },
-        },
-        {
-          hidden: { equals: false },
-        },
-      ],
+      isProcessed: { equals: true },
     },
     limit: 50,
     sort: '-publishDate',

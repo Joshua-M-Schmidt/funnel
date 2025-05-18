@@ -139,8 +139,7 @@ function isEmptyTag(element: HTMLElement): boolean {
   const hasText = element.innerText.trim().length > 0
   const hasChildren = element.childNodes.some(
     (child) =>
-      child instanceof HTMLElement ||
-      (child instanceof TextNode && !child.isComment && child.text.trim().length > 0),
+      child instanceof HTMLElement || (child instanceof TextNode && child.text.trim().length > 0),
   )
 
   return !hasText && !hasChildren

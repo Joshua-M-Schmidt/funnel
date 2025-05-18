@@ -185,6 +185,7 @@ export interface ContentItem {
   isProcessed?: boolean | null;
   category?: string | null;
   estimatedReadTime?: number | null;
+  hideFromFeed?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -316,6 +317,7 @@ export interface ContentItemSelect<T extends boolean = true> {
   isProcessed?: T;
   category?: T;
   estimatedReadTime?: T;
+  hideFromFeed?: T;
   updatedAt?: T;
   createdAt?: T;
 }

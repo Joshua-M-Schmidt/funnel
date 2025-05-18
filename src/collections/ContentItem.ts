@@ -56,7 +56,7 @@ export const ContentItem: CollectionConfig = {
       type: 'number',
     },
     {
-      name: 'hidden',
+      name: 'hideFromFeed',
       type: 'checkbox',
       defaultValue: false,
     },
