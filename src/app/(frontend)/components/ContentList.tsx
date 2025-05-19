@@ -61,22 +61,22 @@ export default function ContentList({ initialItems, loadMore }: ContentListProps
         {items.map((item, index) => (
           <ContentItemCard key={item.id} item={item} index={index} />
         ))}
+
+        {/* Loading indicator */}
+        {loading && (
+          <div className="text-center py-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+          </div>
+        )}
+
+        {/* Intersection observer target */}
+        {hasMore && <div ref={ref} className="h-10 w-full" />}
+
+        {/* No more content message */}
+        {!hasMore && items.length > 0 && (
+          <div className="text-center py-4 text-gray-500">No more articles to load</div>
+        )}
       </div>
-
-      {/* Loading indicator */}
-      {loading && (
-        <div className="text-center py-4">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
-        </div>
-      )}
-
-      {/* Intersection observer target */}
-      {hasMore && <div ref={ref} className="h-10" />}
-
-      {/* No more content message */}
-      {!hasMore && items.length > 0 && (
-        <div className="text-center py-4 text-gray-500">No more articles to load</div>
-      )}
     </div>
   )
 }

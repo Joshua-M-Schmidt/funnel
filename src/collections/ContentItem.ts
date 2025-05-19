@@ -53,11 +53,27 @@ export const ContentItem: CollectionConfig = {
       defaultValue: false,
     },
     {
+      name: 'estimatedReadTime',
+      type: 'number',
+    },
+    {
       name: 'category',
       type: 'text',
     },
     {
-      name: 'estimatedReadTime',
+      name: 'philosophyIndex',
+      type: 'number',
+    },
+    {
+      name: 'historyIndex',
+      type: 'number',
+    },
+    {
+      name: 'scienceIndex',
+      type: 'number',
+    },
+    {
+      name: 'aiIndex',
       type: 'number',
     },
     {

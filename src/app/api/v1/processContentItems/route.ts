@@ -120,7 +120,11 @@ Analyze the following article and provide:
 3. Category classification
 4. Priority level (high/medium/low) based on general interest and urgency
 5. Estimated read time in minutes
-6. 5-10 bullet points, that give the most important information from the article, don't repeat the title in the bullet points
+6. 5-10 bullet points, that give the most important information from the article, don't repeat the title or the summary, give new information in the bullet points
+7. Philosophy index (0.0-10.0)
+8. History index (0.0-10.0)
+9. Science index (0.0-10.0)
+10. AI index (0.0-10.0)
 
 Title: ${item.title}
 Content: ${contentForAnalysis}
@@ -132,7 +136,11 @@ Please respond in valid JSON format:
   "category": "category name",
   "priority": "medium",
   "estimatedReadTime": 5,
-  "bulletPoints": ["bullet point 1", "bullet point 2", "bullet point 3"]
+  "bulletPoints": ["bullet point 1", "bullet point 2", "bullet point 3"],
+  "philosophyIndex": 5.0,
+  "historyIndex": 5.0,
+  "scienceIndex": 5.0,
+  "aiIndex": 5.0
 }
         `
 
@@ -150,7 +158,7 @@ Please respond in valid JSON format:
             },
           ],
           temperature: 0.3,
-          max_tokens: 1000,
+          max_tokens: 1500,
         })
 
         const responseText = completion.choices[0]?.message?.content
@@ -180,6 +188,10 @@ Please respond in valid JSON format:
             category: analysis.category || 'general',
             priority: analysis.priority || 'medium',
             estimatedReadTime: parseInt(analysis.estimatedReadTime) || 5,
+            philosophyIndex: analysis.philosophyIndex || 5.0,
+            historyIndex: analysis.historyIndex || 5.0,
+            scienceIndex: analysis.scienceIndex || 5.0,
+            aiIndex: analysis.aiIndex || 5.0,
             isProcessed: true,
             content: content, // Store the processed content
             bulletPoints: Array.isArray(analysis.bulletPoints) ? analysis.bulletPoints : [],

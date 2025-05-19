@@ -9,23 +9,49 @@ interface ContentItemCardProps {
   index: number
 }
 
+type ExpansionState = 'collapsed' | 'summary' | 'bullets' | 'full'
+
 export default function ContentItemCard({ item, index }: ContentItemCardProps) {
+  const [expansionState, setExpansionState] = useState<ExpansionState>('collapsed')
+
+  const handleClick = () => {
+    switch (expansionState) {
+      case 'collapsed':
+        setExpansionState('summary')
+        break
+      case 'summary':
+        setExpansionState('bullets')
+        break
+      case 'bullets':
+        setExpansionState('full')
+        break
+      case 'full':
+        window.open(item.originalUrl, '_blank')
+        break
+    }
+  }
+
   return (
-    <div className={`flex flex-row gap-4 w-full relative pl-[18px] ${index === 0 && 'pt-8'}`}>
+    <div
+      onClick={handleClick}
+      className={`
+        flex flex-row gap-4 w-full relative pl-[18px] 
+        pt-4
+       
+        
+      `}
+    >
       <div className="w-[1px] bg-slate-700 absolute top-0 left-0 h-full ml-[5px]">
         <div
-          className={`rounded-full w-[11px] h-[11px] bg-slate-700 absolute ${
-            index === 0 ? 'top-10' : 'top-2'
-          } left-[-5px]`}
+          className={`rounded-full w-[11px] h-[11px] bg-slate-700 absolute top-8 left-[-5px]`}
         ></div>
       </div>
       <article
-        className={`
-         pb-5 break-inside-avoid w-full px-6
-      `}
+        className={`break-inside-avoid w-full px-4  cursor-pointer
+        transition-all duration-200 ${expansionState !== 'collapsed' ? 'border border-slate-700 rounded-lg p-4 hover:border-sky-500' : 'hover:bg-slate-800/50 rounded-lg p-4'}`}
       >
         {/* Article Header */}
-        <header className="mb-4">
+        <header className="">
           {item.publishDate && (
             <div className="text-xs text-sky-500 uppercase tracking-wider font-bold">
               {new Date(item.publishDate).toLocaleDateString('en-US', {
@@ -37,13 +63,23 @@ export default function ContentItemCard({ item, index }: ContentItemCardProps) {
           )}
           <h2
             className={`
-            font-bold leading-tight mb-2 text-gray-100
+            font-bold leading-tight text-gray-100
             text-xl md:text-2xl mt-2
+            flex items-center gap-2
           `}
           >
-            {item.title}{' '}
-            <span className="text-xs text-sky-600">({(item?.source as Source)?.name || ''})</span>
+            {item.title.startsWith('Email')
+              ? item.title.replace(/^Email\s*/i, '')
+              : item.title}{' '}
           </h2>
+
+          <span className="text-xs text-sky-600">({(item?.source as Source)?.name || ''})</span>
+          <span className="text-sky-500 text-sm">
+            {expansionState === 'collapsed' && ' +'}
+            {expansionState === 'summary' && ' +'}
+            {expansionState === 'bullets' && ' +'}
+            {expansionState === 'full' && ' ↗'}
+          </span>
 
           {item.category && (
             <div className="text-xs text-gray-400 uppercase tracking-wider font-bold">
@@ -54,20 +90,27 @@ export default function ContentItemCard({ item, index }: ContentItemCardProps) {
 
         {/* Article Content */}
         <div className="text-sm leading-relaxed text-gray-300">
-          {item.summary && <p className="mb-3 text-gray-100 italic text-justify">{item.summary}</p>}
-
-          {item.bulletPoints && item.bulletPoints.length > 0 && (
-            <div className="flex mb-2 flex-wrap gap-1.5 mb-2.5 p-2 rounded-md text-slate-200 border border-slate-700 ">
-              <ul className="list-disc pl-5">
-                {item.bulletPoints.map((bulletPoint, idx) => (
-                  <li key={idx}>{bulletPoint}</li>
-                ))}
-              </ul>
-            </div>
+          {/* Summary - shown when expanded to summary or further */}
+          {expansionState !== 'collapsed' && item.summary && (
+            <p className="mb-3 text-gray-100 italic text-justify">{item.summary}</p>
           )}
 
-          {/* Keywords as tags */}
-          {item.keywords && item.keywords.length > 0 && (
+          {/* Bullet Points - shown when expanded to bullets or full */}
+          {expansionState !== 'collapsed' &&
+            expansionState !== 'summary' &&
+            item.bulletPoints &&
+            item.bulletPoints.length > 0 && (
+              <div className="flex mb-2 flex-wrap gap-1.5 mb-2.5 p-2 rounded-md text-slate-200 border border-slate-700">
+                <ul className="list-disc pl-5">
+                  {item.bulletPoints.map((bulletPoint, idx) => (
+                    <li key={idx}>{bulletPoint}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+          {/* Keywords - shown when expanded to full */}
+          {expansionState === 'full' && item.keywords && item.keywords.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mb-2.5">
               {item.keywords.slice(0, 3).map((keyword, idx) => (
                 <span
@@ -80,30 +123,19 @@ export default function ContentItemCard({ item, index }: ContentItemCardProps) {
             </div>
           )}
 
-          {/* Article Meta */}
-          <div className="flex justify-between items-center mt-2.5 text-xs text-gray-50 pt-2 ">
-            <span className="font-bold">Priority: {item.priority}</span>
-          </div>
+          {/* Article Meta - shown when expanded to full */}
+          {expansionState === 'full' && (
+            <div className="flex justify-between items-center mt-2.5 text-xs text-gray-50 pt-2">
+              <span className="font-bold">Priority: {item.priority}</span>
+            </div>
+          )}
 
-          {/* View Full Content Button */}
-          <div className="flex ">
-            <a
-              href={item.originalUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="
-              text-sky-500 border-none py-1 px-2 text-sm cursor-pointer 
-              mt-2  tracking-wider transition-colors duration-300
-              hover:bg-gray-700 bg-sky-900 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2
-            "
-              type="button"
-            >
-              {item.estimatedReadTime && (
-                <span className="italic font-bold">{item.estimatedReadTime} min read </span>
-              )}
-              Read Full Article →
-            </a>
-          </div>
+          {/* Reading Time - shown when expanded to full */}
+          {expansionState === 'full' && item.estimatedReadTime && (
+            <div className="text-sky-500 text-sm mt-2 italic">
+              {item.estimatedReadTime} min read
+            </div>
+          )}
         </div>
       </article>
     </div>

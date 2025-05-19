@@ -184,8 +184,12 @@ export interface ContentItem {
   publishDate?: string | null;
   priority?: ('high' | 'medium' | 'low') | null;
   isProcessed?: boolean | null;
-  category?: string | null;
   estimatedReadTime?: number | null;
+  category?: string | null;
+  philosophyIndex?: number | null;
+  historyIndex?: number | null;
+  scienceIndex?: number | null;
+  aiIndex?: number | null;
   hideFromFeed?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -317,8 +321,12 @@ export interface ContentItemSelect<T extends boolean = true> {
   publishDate?: T;
   priority?: T;
   isProcessed?: T;
-  category?: T;
   estimatedReadTime?: T;
+  category?: T;
+  philosophyIndex?: T;
+  historyIndex?: T;
+  scienceIndex?: T;
+  aiIndex?: T;
   hideFromFeed?: T;
   updatedAt?: T;
   createdAt?: T;
