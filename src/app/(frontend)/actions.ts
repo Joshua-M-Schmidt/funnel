@@ -2,6 +2,7 @@
 
 import { getPayload } from 'payload'
 import config from '@/payload.config'
+import { ContentItem } from '@/payload-types'
 
 // Helper functions for week calculations
 function getDateFromWeek(year: number, week: number): { start: Date; end: Date } {
@@ -33,8 +34,19 @@ export async function loadContentItems(page: number = 1) {
     sort: '-publishDate',
   })
 
+  // filter out icons where all indexes at the same time are 0 ( philosophyIndex, personalIndex, historyIndex, scienceIndex, aiIndex)
+  const filteredItems = contentItems.docs.filter((item: ContentItem) => {
+    return (
+      (item.philosophyIndex && item.philosophyIndex > 0) ||
+      (item.personalIndex && item.personalIndex > 0) ||
+      (item.historyIndex && item.historyIndex > 0) ||
+      (item.scienceIndex && item.scienceIndex > 0) ||
+      (item.aiIndex && item.aiIndex > 0)
+    )
+  })
+
   return {
-    items: contentItems.docs,
+    items: filteredItems,
     hasMore: contentItems.hasNextPage,
     totalPages: contentItems.totalPages,
   }
