@@ -121,10 +121,11 @@ Analyze the following article and provide:
 4. Priority level (high/medium/low) based on general interest and urgency
 5. Estimated read time in minutes
 6. 5-10 bullet points, that give the most important information from the article, don't repeat the title or the summary, give new information in the bullet points
-7. Philosophy index (0.0-10.0)
-8. History index (0.0-10.0)
-9. Science index (0.0-10.0)
-10. AI index (0.0-10.0)
+7. Philosophy index (0.0-10.0) how philosophical the article is
+8. History index (0.0-10.0) how interesting the article is to a history-minded person
+9. Science index (0.0-10.0) how interesting the article is to a science-minded person
+10. AI index (0.0-10.0) how interesting the article is to an AI-minded person
+11. Personal index (0.0-10.0) how interesting the article is to an personal development-minded person
 
 Title: ${item.title}
 Content: ${contentForAnalysis}
@@ -140,7 +141,8 @@ Please respond in valid JSON format:
   "philosophyIndex": 5.0,
   "historyIndex": 5.0,
   "scienceIndex": 5.0,
-  "aiIndex": 5.0
+  "aiIndex": 5.0,
+  "personalIndex": 5.0
 }
         `
 
@@ -188,10 +190,11 @@ Please respond in valid JSON format:
             category: analysis.category || 'general',
             priority: analysis.priority || 'medium',
             estimatedReadTime: parseInt(analysis.estimatedReadTime) || 5,
-            philosophyIndex: analysis.philosophyIndex || 5.0,
-            historyIndex: analysis.historyIndex || 5.0,
-            scienceIndex: analysis.scienceIndex || 5.0,
-            aiIndex: analysis.aiIndex || 5.0,
+            philosophyIndex: analysis.philosophyIndex || 0.0,
+            historyIndex: analysis.historyIndex || 0.0,
+            scienceIndex: analysis.scienceIndex || 0.0,
+            personalIndex: analysis.personalIndex || 0.0,
+            aiIndex: analysis.aiIndex || 0.0,
             isProcessed: true,
             content: content, // Store the processed content
             bulletPoints: Array.isArray(analysis.bulletPoints) ? analysis.bulletPoints : [],

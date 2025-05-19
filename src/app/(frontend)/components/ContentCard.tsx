@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import ContentPopup from './ContentPopup'
 import { ContentItem, Source } from '@/payload-types'
+import IndexIndicator from './IndexIndicator'
 
 interface ContentItemCardProps {
   item: ContentItem
@@ -37,8 +38,6 @@ export default function ContentItemCard({ item, index }: ContentItemCardProps) {
       className={`
         flex flex-row gap-4 w-full relative pl-[18px] 
         pt-4
-       
-        
       `}
     >
       <div className="w-[1px] bg-slate-700 absolute top-0 left-0 h-full ml-[5px]">
@@ -52,15 +51,42 @@ export default function ContentItemCard({ item, index }: ContentItemCardProps) {
       >
         {/* Article Header */}
         <header className="">
-          {item.publishDate && (
-            <div className="text-xs text-sky-500 uppercase tracking-wider font-bold">
-              {new Date(item.publishDate).toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-              })}
-            </div>
-          )}
+          <div className="flex flex-row gap-2">
+            {item.publishDate && (
+              <div className="text-xs text-sky-500 uppercase tracking-wider font-bold">
+                {new Date(item.publishDate).toLocaleDateString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                })}
+              </div>
+            )}
+            <IndexIndicator
+              label="Philosophy"
+              value={item.philosophyIndex || 0}
+              gradient={{ from: 'sky', to: 'indigo' }}
+            />
+            <IndexIndicator
+              label="History"
+              value={item.historyIndex || 0}
+              gradient={{ from: 'red', to: 'orange' }}
+            />
+            <IndexIndicator
+              label="Science"
+              value={item.scienceIndex || 0}
+              gradient={{ from: 'orange', to: 'yellow' }}
+            />
+            <IndexIndicator
+              label="AI"
+              value={item.aiIndex || 0}
+              gradient={{ from: 'indigo', to: 'purple' }}
+            />
+            <IndexIndicator
+              label="Personal"
+              value={item.personalIndex || 0}
+              gradient={{ from: 'green', to: 'lime' }}
+            />
+          </div>
           <h2
             className={`
             font-bold leading-tight text-gray-100

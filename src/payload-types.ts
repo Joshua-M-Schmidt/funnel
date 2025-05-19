@@ -187,6 +187,7 @@ export interface ContentItem {
   estimatedReadTime?: number | null;
   category?: string | null;
   philosophyIndex?: number | null;
+  personalIndex?: number | null;
   historyIndex?: number | null;
   scienceIndex?: number | null;
   aiIndex?: number | null;
@@ -324,6 +325,7 @@ export interface ContentItemSelect<T extends boolean = true> {
   estimatedReadTime?: T;
   category?: T;
   philosophyIndex?: T;
+  personalIndex?: T;
   historyIndex?: T;
   scienceIndex?: T;
   aiIndex?: T;

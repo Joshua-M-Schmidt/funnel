@@ -65,6 +65,10 @@ export const ContentItem: CollectionConfig = {
       type: 'number',
     },
     {
+      name: 'personalIndex',
+      type: 'number',
+    },
+    {
       name: 'historyIndex',
       type: 'number',
     },
