@@ -36,8 +36,9 @@ export default function ContentItemCard({ item, index }: ContentItemCardProps) {
     <div
       onClick={handleClick}
       className={`
-        flex flex-row gap-4 w-full relative pl-[18px] 
+        flex flex-row gap-4 relative pl-[18px] 
         pt-4
+        mx-2
       `}
     >
       <div className="w-[1px] bg-slate-700 absolute top-0 left-0 h-full ml-[5px]">
@@ -47,7 +48,7 @@ export default function ContentItemCard({ item, index }: ContentItemCardProps) {
       </div>
       <article
         className={`break-inside-avoid w-full px-4  cursor-pointer
-        transition-all duration-200 ${expansionState !== 'collapsed' ? 'border border-slate-700 rounded-lg p-4 hover:border-sky-500' : 'hover:bg-slate-800/50 rounded-lg p-4'}`}
+        transition-all duration-200 ${expansionState !== 'collapsed' ? 'border border-slate-700 bg-slate-800 rounded-lg p-4 hover:border-sky-500' : 'hover:bg-slate-800/50 rounded-lg p-4'}`}
       >
         {/* Article Header */}
         <header className="">
