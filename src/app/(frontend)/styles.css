@@ -1,5 +1,5 @@
 @import "tailwindcss";
 
 body {
-  @apply bg-yellow-50;
+  @apply bg-slate-900 text-white;
 }
