@@ -21,6 +21,7 @@ function getDateFromWeek(year: number, week: number): { start: Date; end: Date }
 }
 
 export async function loadContentItems(page: number = 1) {
+  console.log('loadContentItems', page)
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 

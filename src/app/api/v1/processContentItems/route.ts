@@ -1,6 +1,7 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import OpenAI from 'openai'
+import { revalidatePath } from 'next/cache'
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -233,6 +234,8 @@ Please respond in valid JSON format:
     }
 
     payload.logger.info('Processing batch completed:', responseData.statistics)
+
+    revalidatePath('/')
 
     return new Response(JSON.stringify(responseData), {
       status: 200,
