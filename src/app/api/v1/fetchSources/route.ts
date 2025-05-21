@@ -12,6 +12,7 @@ export const GET = async () => {
 
     const data = await payload.find({
       collection: 'source',
+      limit: 0
     })
 
     let totalProcessed = 0
